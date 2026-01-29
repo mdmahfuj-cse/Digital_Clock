@@ -72,3 +72,25 @@ header p {
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: var(--transition);
 }
+
+.clock-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.time-display {
+    font-size: 5rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(74, 109, 229, 0.5);
+    color: #fff;
+}
+
+.date-display {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
