@@ -3,9 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Digital Clock | Modern Alarm Clock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-clock"></i> Digital Clock</h1>
+            <p>A modern digital clock with alarm features</p>
+        </header>
+
+        <div class="clock-container">
+            <div class="time-display" id="timeDisplay">00:00:00</div>
+            <div class="date-display" id="dateDisplay">Monday, January 1, 2024</div>
+            
+            <div class="clock-controls">
+                <button class="btn btn-secondary" id="formatToggle">
+                    <i class="fas fa-exchange-alt"></i> 12/24 Hour
+                </button>
+                <button class="btn btn-secondary" id="timezoneToggle">
+                    <i class="fas fa-globe"></i> Timezone
+                </button>
+                <button class="btn btn-primary" id="snoozeBtn" disabled>
+                    <i class="fas fa-bed"></i> Snooze (10 min)
+                </button>
+            </div>
+        </div>
+
+        <div class="alarm-container">
+            <h2 class="section-title">
+                <i class="fas fa-bell"></i> Alarm Settings
+            </h2>
+            
+            <form class="alarm-form" id="alarmForm">
+                <div class="form-group">
+                    <label for="alarmTime">Set Alarm Time</label>
+                    <div class="time-inputs">
+                        <input type="number" id="alarmHour" class="time-input" min="0" max="23" value="07" placeholder="HH">
+                        <span class="time-separator">:</span>
+                        <input type="number" id="alarmMinute" class="time-input" min="0" max="59" value="30" placeholder="MM">
+                        <select id="alarmPeriod" class="time-input" style="width: 100px;">
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="alarmLabel">Alarm Label (Optional)</label>
+                    <input type="text" id="alarmLabel" class="alarm-label-input" placeholder="Wake up, Meeting, etc." maxlength="30">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Add Alarm
+                </button>
+            </form>
+            
+            <h3 class="section-title">
+                <i class="fas fa-list"></i> Active Alarms
+            </h3>
+            
+            <div class="alarm-list" id="alarmList">
+                <!-- Alarms will be added here dynamically -->
+                <div class="alarm-item">
+                    <div class="alarm-info">
+                        <div class="alarm-time">07:30 AM</div>
+                        <div class="alarm-label">Wake up</div>
+                    </div>
+                    <div class="alarm-actions">
+                        <button class="icon-btn toggle-btn">
+                            <i class="fas fa-bell-slash"></i>
+                        </button>
+                        <button class="icon-btn delete-btn">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Alarm set successfully!</span>
+    </div>
+
+    <audio id="alarmSound" loop>
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="./script.js"></script>
 </body>
 </html>
