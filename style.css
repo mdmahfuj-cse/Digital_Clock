@@ -387,3 +387,24 @@ header p {
         font-size: 1.3rem;
         padding: 12px;
     }
+        
+    .alarm-item {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .alarm-actions {
+        align-self: flex-end;
+    }
+    
+    .clock-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
