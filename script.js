@@ -22,3 +22,31 @@ let alarms = [];
 let alarmCounter = 0;
 let activeAlarm = null;
 let isLightTheme = false;
+
+// Initialize the app
+function init() {
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    
+    loadAlarmsFromStorage();
+    renderAlarms();
+    
+    setupEventListeners();
+    showNotification('Digital Clock initialized. Ready to set alarms!', 'success');
+}
+
+// Update date and time display
+function updateDateTime() {
+    const now = new Date();
+    
+    // Format time based on current settings
+    let timeString;
+    if (is24HourFormat) {
+        timeString = now.toLocaleTimeString('en-US', { 
+            hour12: false, 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit',
+            timeZone: currentTimezone 
+        });
+    } else {
