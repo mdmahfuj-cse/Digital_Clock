@@ -408,3 +408,23 @@ header p {
         justify-content: center;
     }
 }
+
+@media (max-width: 480px) {
+    .time-display {
+        font-size: 2.8rem;
+    }
+    
+    .time-input {
+        width: 70px;
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+    
+    .time-inputs {
+        gap: 10px;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+}
