@@ -214,3 +214,26 @@ header p {
     overflow-y: auto;
     padding-right: 10px;
 }
+
+.alarm-item {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition);
+    border-left: 4px solid var(--primary-color);
+}
+
+.alarm-item.active {
+    border-left-color: var(--success-color);
+    background: rgba(46, 213, 115, 0.1);
+}
+
+.alarm-item.triggered {
+    border-left-color: var(--danger-color);
+    animation: pulse 1.5s infinite;
+    background: rgba(255, 71, 87, 0.1);
+}
