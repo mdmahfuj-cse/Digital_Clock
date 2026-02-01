@@ -309,3 +309,34 @@ header p {
     z-index: 100;
     transition: var(--transition);
 }
+
+.theme-toggle:hover {
+    transform: rotate(30deg);
+}
+
+/* Light theme */
+.light-theme {
+    --dark-color: #eef2f7;
+    --darker-color: #d6e4f0;
+    --light-color: #1a1a2e;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Notification styling */
+.notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--success-color);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transform: translateX(150%);
+    transition: transform 0.5s ease;
+}
