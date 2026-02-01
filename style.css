@@ -340,3 +340,25 @@ header p {
     transform: translateX(150%);
     transition: transform 0.5s ease;
 }
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.danger {
+    background: var(--danger-color);
+}
+
+.notification.warning {
+    background: var(--warning-color);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
