@@ -362,3 +362,28 @@ header p {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .time-display {
+        font-size: 3.5rem;
+    }
+    
+    .date-display {
+        font-size: 1.4rem;
+    }
+    
+    .time-inputs {
+        justify-content: center;
+    }
+    
+    .time-input {
+        width: 80px;
+        font-size: 1.3rem;
+        padding: 12px;
+    }
