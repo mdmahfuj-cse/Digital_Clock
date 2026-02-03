@@ -74,3 +74,27 @@ function updateDateTime() {
     // Check for active alarms
     checkAlarms(now);
 }
+
+// Load alarms from localStorage
+function loadAlarmsFromStorage() {
+    const savedAlarms = localStorage.getItem('digitalClockAlarms');
+    if (savedAlarms) {
+        alarms = JSON.parse(savedAlarms);
+        alarmCounter = alarms.length > 0 ? Math.max(...alarms.map(a => a.id)) + 1 : 0;
+    }
+}
+
+// Save alarms to localStorage
+function saveAlarmsToStorage() {
+    localStorage.setItem('digitalClockAlarms', JSON.stringify(alarms));
+}
+
+// Render alarms to the UI
+function renderAlarms() {
+    alarmList.innerHTML = '';
+    
+    if (alarms.length === 0) {
+        alarmList.innerHTML = '<p style="text-align: center; opacity: 0.7; padding: 20px;">No alarms set. Add one above!</p>';
+        return;
+    }
+    
