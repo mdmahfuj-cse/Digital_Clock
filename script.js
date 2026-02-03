@@ -97,4 +97,35 @@ function renderAlarms() {
         alarmList.innerHTML = '<p style="text-align: center; opacity: 0.7; padding: 20px;">No alarms set. Add one above!</p>';
         return;
     }
-    
+       alarms.forEach(alarm => {
+        const alarmItem = document.createElement('div');
+        alarmItem.className = `alarm-item ${alarm.active ? 'active' : ''} ${alarm.triggered ? 'triggered' : ''}`;
+        alarmItem.dataset.id = alarm.id;
+        
+        // Format alarm time for display
+        let displayTime = formatAlarmTimeForDisplay(alarm.hour, alarm.minute, alarm.period);
+        
+        alarmItem.innerHTML = `
+            <div class="alarm-info">
+                <div class="alarm-time">${displayTime}</div>
+                <div class="alarm-label">${alarm.label || 'Alarm'}</div>
+            </div>
+            <div class="alarm-actions">
+                <button class="icon-btn toggle-btn" title="${alarm.active ? 'Disable Alarm' : 'Enable Alarm'}">
+                    <i class="fas ${alarm.active ? 'fa-bell' : 'fa-bell-slash'}"></i>
+                </button>
+                <button class="icon-btn delete-btn" title="Delete Alarm">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+        
+        alarmList.appendChild(alarmItem);
+        
+        // Add event listeners to the buttons
+        const toggleBtn = alarmItem.querySelector('.toggle-btn');
+        const deleteBtn = alarmItem.querySelector('.delete-btn');
+        
+        toggleBtn.addEventListener('click', () => toggleAlarm(alarm.id));
+        deleteBtn.addEventListener('click', () => deleteAlarm(alarm.id));
+    });
