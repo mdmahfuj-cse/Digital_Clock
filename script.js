@@ -129,3 +129,48 @@ function renderAlarms() {
         toggleBtn.addEventListener('click', () => toggleAlarm(alarm.id));
         deleteBtn.addEventListener('click', () => deleteAlarm(alarm.id));
     });
+    }
+
+// Format alarm time for display
+function formatAlarmTimeForDisplay(hour, minute, period) {
+    let displayHour = hour;
+    
+    if (!is24HourFormat && period) {
+        // Convert to 12-hour format for display
+        if (period === 'PM' && hour < 12) displayHour = hour + 12;
+        if (period === 'AM' && hour === 12) displayHour = 0;
+    }
+    
+    const formattedHour = displayHour.toString().padStart(2, '0');
+    const formattedMinute = minute.toString().padStart(2, '0');
+    
+    if (is24HourFormat) {
+        return `${formattedHour}:${formattedMinute}`;
+    } else {
+        return `${formattedHour}:${formattedMinute} ${period}`;
+    }
+}
+
+// Add a new alarm
+function addAlarm(hour, minute, period, label) {
+    // Validate input
+    if (hour < 0 || hour > 23) {
+        showNotification('Hour must be between 0 and 23', 'danger');
+        return;
+    }
+    
+    if (minute < 0 || minute > 59) {
+        showNotification('Minute must be between 0 and 59', 'danger');
+        return;
+    }
+    
+    const newAlarm = {
+        id: alarmCounter++,
+        hour: parseInt(hour),
+        minute: parseInt(minute),
+        period: period || 'AM',
+        label: label || 'Alarm',
+        active: true,
+        triggered: false,
+        snoozed: false
+    };
