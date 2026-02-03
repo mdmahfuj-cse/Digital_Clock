@@ -207,3 +207,46 @@ function toggleAlarm(id) {
         }
     }
 }
+
+// Delete an alarm
+function deleteAlarm(id) {
+    const alarmIndex = alarms.findIndex(alarm => alarm.id === id);
+    if (alarmIndex !== -1) {
+        const alarm = alarms[alarmIndex];
+        alarms.splice(alarmIndex, 1);
+        saveAlarmsToStorage();
+        renderAlarms();
+        
+        showNotification(`Alarm deleted for ${formatAlarmTimeForDisplay(alarm.hour, alarm.minute, alarm.period)}`, 'warning');
+        
+        // Stop alarm sound if it was triggered
+        if (activeAlarm && activeAlarm.id === id) {
+            stopAlarmSound();
+        }
+    }
+}
+
+// Check if any alarm should trigger
+function checkAlarms(now) {
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const currentSecond = now.getSeconds();
+    
+    // Only check at the beginning of each minute
+    if (currentSecond !== 0) return;
+    
+    alarms.forEach(alarm => {
+        if (!alarm.active || alarm.triggered) return;
+        
+        let alarmHour = alarm.hour;
+        
+        // Convert to 24-hour format for comparison
+        if (alarm.period === 'PM' && alarmHour < 12) alarmHour += 12;
+        if (alarm.period === 'AM' && alarmHour === 12) alarmHour = 0;
+        
+        // Check if alarm time matches current time
+        if (alarmHour === currentHour && alarm.minute === currentMinute) {
+            triggerAlarm(alarm);
+        }
+    });
+}
