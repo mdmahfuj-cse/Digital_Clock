@@ -174,3 +174,36 @@ function addAlarm(hour, minute, period, label) {
         triggered: false,
         snoozed: false
     };
+        
+    alarms.push(newAlarm);
+    saveAlarmsToStorage();
+    renderAlarms();
+    
+    showNotification(`Alarm set for ${formatAlarmTimeForDisplay(hour, minute, period)}`, 'success');
+    
+    // Reset form
+    alarmHour.value = '07';
+    alarmMinute.value = '30';
+    alarmPeriod.value = 'AM';
+    alarmLabel.value = '';
+}
+
+// Toggle alarm active state
+function toggleAlarm(id) {
+    const alarmIndex = alarms.findIndex(alarm => alarm.id === id);
+    if (alarmIndex !== -1) {
+        alarms[alarmIndex].active = !alarms[alarmIndex].active;
+        alarms[alarmIndex].triggered = false;
+        saveAlarmsToStorage();
+        renderAlarms();
+        
+        const alarm = alarms[alarmIndex];
+        const status = alarm.active ? 'enabled' : 'disabled';
+        showNotification(`Alarm ${status} for ${formatAlarmTimeForDisplay(alarm.hour, alarm.minute, alarm.period)}`, 'warning');
+        
+        // Stop alarm sound if it was triggered
+        if (!alarm.active && activeAlarm && activeAlarm.id === id) {
+            stopAlarmSound();
+        }
+    }
+}
