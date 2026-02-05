@@ -250,3 +250,40 @@ function checkAlarms(now) {
         }
     });
 }
+
+// Trigger an alarm
+function triggerAlarm(alarm) {
+    alarm.triggered = true;
+    activeAlarm = alarm;
+    saveAlarmsToStorage();
+    renderAlarms();
+    
+    // Play alarm sound
+    playAlarmSound();
+    
+    // Enable snooze button
+    snoozeBtn.disabled = false;
+    
+    // Show notification
+    showNotification(`⏰ ${alarm.label} alarm is ringing!`, 'danger');
+    
+    // Also show browser notification if supported
+    if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('Alarm Triggered', {
+            body: `${alarm.label} alarm is ringing!`,
+            icon: 'https://cdn-icons-png.flaticon.com/512/3208/3208720.png'
+        });
+    }
+}
+
+// Play alarm sound
+function playAlarmSound() {
+    alarmSound.currentTime = 0;
+    alarmSound.play().catch(e => console.log('Audio play failed:', e));
+}
+
+// Stop alarm sound
+function stopAlarmSound() {
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
+    
