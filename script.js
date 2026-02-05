@@ -286,4 +286,38 @@ function playAlarmSound() {
 function stopAlarmSound() {
     alarmSound.pause();
     alarmSound.currentTime = 0;
+       // Reset active alarm
+    if (activeAlarm) {
+        const alarmIndex = alarms.findIndex(a => a.id === activeAlarm.id);
+        if (alarmIndex !== -1) {
+            alarms[alarmIndex].triggered = false;
+        }
+        activeAlarm = null;
+        saveAlarmsToStorage();
+        renderAlarms();
+    }
+    
+    // Disable snooze button
+    snoozeBtn.disabled = true;
+}
+
+// Snooze active alarm
+function snoozeAlarm() {
+    if (!activeAlarm) return;
+    
+    // Add 10 minutes to the current alarm time
+    const now = new Date();
+    const snoozeTime = new Date(now.getTime() + 10 * 60000); // 10 minutes from now
+    
+    // Create a temporary snooze alarm
+    const snoozeAlarm = {
+        id: alarmCounter++,
+        hour: snoozeTime.getHours(),
+        minute: snoozeTime.getMinutes(),
+        period: snoozeTime.getHours() >= 12 ? 'PM' : 'AM',
+        label: `Snooze: ${activeAlarm.label}`,
+        active: true,
+        triggered: false,
+        snoozed: true
+    };
     
