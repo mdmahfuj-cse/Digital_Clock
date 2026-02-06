@@ -366,3 +366,42 @@ function toggleTimezone() {
     updateDateTime();
     showNotification(`Timezone changed to ${currentTimezone}`, 'success');
 }
+
+// Toggle theme
+function toggleTheme() {
+    isLightTheme = !isLightTheme;
+    
+    if (isLightTheme) {
+        document.body.classList.add('light-theme');
+        themeToggle.innerHTML = `<i class="fas fa-sun"></i>`;
+        themeToggle.title = 'Switch to dark theme';
+    } else {
+        document.body.classList.remove('light-theme');
+        themeToggle.innerHTML = `<i class="fas fa-moon"></i>`;
+        themeToggle.title = 'Switch to light theme';
+    }
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    // Time format toggle
+    formatToggle.addEventListener('click', toggleTimeFormat);
+    
+    // Timezone toggle
+    timezoneToggle.addEventListener('click', toggleTimezone);
+    
+    // Snooze button
+    snoozeBtn.addEventListener('click', snoozeAlarm);
+    
+    // Alarm form submission
+    alarmForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const hour = parseInt(alarmHour.value);
+        const minute = parseInt(alarmMinute.value);
+        const period = alarmPeriod.value;
+        const label = alarmLabel.value.trim();
+        
+        addAlarm(hour, minute, period, label);
+    });
+    
