@@ -340,3 +340,29 @@ function showNotification(message, type = 'success') {
         notification.classList.remove('show');
     }, 3000);
 }
+
+// Toggle between 12/24 hour format
+function toggleTimeFormat() {
+    is24HourFormat = !is24HourFormat;
+    formatToggle.innerHTML = `<i class="fas fa-exchange-alt"></i> ${is24HourFormat ? '12' : '24'} Hour`;
+    updateDateTime();
+    renderAlarms();
+    
+    showNotification(`Time format changed to ${is24HourFormat ? '24-hour' : '12-hour'}`, 'success');
+}
+
+// Toggle timezone (simplified for demo)
+function toggleTimezone() {
+    // In a real app, you would show a timezone selector
+    // For demo, we'll just toggle between local and UTC
+    if (currentTimezone === 'UTC') {
+        currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        timezoneToggle.innerHTML = `<i class="fas fa-globe"></i> Local Time`;
+    } else {
+        currentTimezone = 'UTC';
+        timezoneToggle.innerHTML = `<i class="fas fa-globe"></i> UTC Time`;
+    }
+    
+    updateDateTime();
+    showNotification(`Timezone changed to ${currentTimezone}`, 'success');
+}
