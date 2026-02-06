@@ -404,4 +404,30 @@ function setupEventListeners() {
         
         addAlarm(hour, minute, period, label);
     });
+        // Theme toggle
+    themeToggle.addEventListener('click', toggleTheme);
     
+    // Request notification permission
+    if ('Notification' in window && Notification.permission === 'default') {
+        setTimeout(() => {
+            Notification.requestPermission();
+        }, 2000);
+    }
+    
+    // Validate hour input
+    alarmHour.addEventListener('change', function() {
+        let value = parseInt(this.value);
+        if (value < 0) this.value = 0;
+        if (value > 23) this.value = 23;
+    });
+    
+    // Validate minute input
+    alarmMinute.addEventListener('change', function() {
+        let value = parseInt(this.value);
+        if (value < 0) this.value = 0;
+        if (value > 59) this.value = 59;
+    });
+}
+
+// Initialize the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', init);
