@@ -320,4 +320,23 @@ function snoozeAlarm() {
         triggered: false,
         snoozed: true
     };
+        alarms.push(snoozeAlarm);
+    saveAlarmsToStorage();
+    renderAlarms();
     
+    // Stop current alarm
+    stopAlarmSound();
+    
+    showNotification(`Alarm snoozed until ${formatAlarmTimeForDisplay(snoozeAlarm.hour, snoozeAlarm.minute, snoozeAlarm.period)}`, 'warning');
+}
+
+// Show notification
+function showNotification(message, type = 'success') {
+    notificationText.textContent = message;
+    notification.className = 'notification';
+    notification.classList.add(type, 'show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
